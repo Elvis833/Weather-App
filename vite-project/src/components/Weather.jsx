@@ -31,10 +31,10 @@ const Weather = () => {
   };
 
   const search = async (city) => {
-    if (city=== ""){
+    if (city === "") {
       alert("Enter City Name");
       return;
-  }
+    }
     try {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f05a43700d332c0ef359cc73e2495230`;
       const Api_key = `f05a43700d332c0ef359cc73e2495230`;
@@ -43,7 +43,7 @@ const Weather = () => {
       if (!response.ok) {
         alert(data.message);
         return;
-  }
+      }
 
       const icon = allIcons[data.weather[0].icon] || clear_icon;
 
@@ -60,36 +60,48 @@ const Weather = () => {
     }
   };
   useEffect(() => {
-    search("Auckland");
+    search("Enter City Name");
   }, []);
+
+  const currentDateAndDay = () => {
+    const dayDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date().toLocaleDateString(undefined, dayDate);
+  };
+
+  const currentTime = () => {
+    const time = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    return new Date().toLocaleTimeString(undefined, time);
+  };
 
   return (
     <div className="weather">
       <div className="search-bar">
-      <input ref={inputRef} type="text" placeholder="Search" />
-      <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
+        <input ref={inputRef} type="text" placeholder="Search" />
+        <img src={search_icon} alt="" onClick={() => search(inputRef.current.value)} />
       </div>
-      {weatherData? <>
+      {weatherData ? <>
         <img src={weatherData.icon} className="weather-icon" />
-      <p className="temperature">{weatherData.temperature}°C</p>
-      <p className="location"> {weatherData.location}</p>
-      <div className='weather-data'>
-        <div className="col">
-          <img src={humidity_icon} alt=" " />
-          <div>
-            <p>{weatherData.humidity}%</p>
-            <span>Humidity</span>
+        <p className="temperature">{weatherData.temperature}°C</p>
+        <p className="location"> {weatherData.location}</p>
+        <p className="date">Today is {currentDateAndDay()}</p>
+        <p className="time">The Time is {currentTime()}</p>
+        <div className='weather-data'>
+          <div className="col">
+            <img src={humidity_icon} alt=" " />
+            <div>
+              <p>{weatherData.humidity}%</p>
+              <span>Humidity</span>
+            </div>
+          </div>
+          <div className="col">
+            <img src={wind_icon} alt=" " />
+            <div>
+              <p>{weatherData.windSpeed}</p>
+              <span>Wind Speed</span>
+            </div>
           </div>
         </div>
-        <div className="col">
-          <img src={wind_icon} alt=" " />
-          <div>
-            <p>{weatherData.windSpeed}</p>
-            <span>Wind Speed</span>
-          </div>
-        </div>
-      </div>
-     </>:<></>}
+      </> : <></>}
     </div>
   );
 };

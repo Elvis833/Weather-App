@@ -69,3 +69,13 @@ font-size:22px;
     width:26px;
     margin-top: 10px;    
 }
+.date{
+    color: #fff;
+    font-size: 18px;
+    margin-top: 40px;
+}
+.time{
+    color: #fff;
+    font-size: 18px;
+    margin-top: 10px;
+}
