@@ -12,6 +12,8 @@ import wind_icon from '../assets/wind.png'
 const Weather = () => {
   const inputRef = useRef();
   const [weatherData, setWeatherData] = useState(false);
+  
+  const [city, setCity] = useState ('');
 
   const allIcons = {
     "01d": clear_icon,
@@ -31,7 +33,7 @@ const Weather = () => {
   };
 
   const search = async (city) => {
-    if (city === "") {
+    if (city === " ") {
       alert("Enter City Name");
       return;
     }
@@ -60,8 +62,15 @@ const Weather = () => {
     }
   };
   useEffect(() => {
-    search("Enter City Name");
-  }, []);
+    search(city);
+  }, [city]);
+
+  const handleKeyDown = (event)=> {
+     if (event.key === "Enter"){
+     console.log ('Enter');
+     setCity(inputRef.current.value)
+     }
+  };
 
   const currentDateAndDay = () => {
     const dayDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -74,10 +83,12 @@ const Weather = () => {
   };
 
   return (
+    
     <div className="weather">
+      <h1>Elvis's Weather App</h1>
       <div className="search-bar">
-        <input ref={inputRef} type="text" placeholder="Search" />
-        <img src={search_icon} alt="" onClick={() => search(inputRef.current.value)} />
+        <input ref={inputRef} type="text" placeholder="Search" onKeyDown={handleKeyDown}/>
+        <img src={search_icon} alt="" onClick={() => setCity(inputRef.current.value)} />
       </div>
       {weatherData ? <>
         <img src={weatherData.icon} className="weather-icon" />
