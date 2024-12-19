@@ -85,6 +85,7 @@ const Weather = () => {
   return (
     
     <div className="weather">
+  
       <h1>Elvis's Weather App</h1>
       <div className="search-bar">
         <input ref={inputRef} type="text" placeholder="Search" onKeyDown={handleKeyDown}/>

@@ -8,6 +8,6 @@
 .app{
   min-height: 100vh;
   display: grid;
-  background:#d4dcff ;
-
+  background-image: url('./assets/bkg-img.png');
+  background-size: cover
 }
